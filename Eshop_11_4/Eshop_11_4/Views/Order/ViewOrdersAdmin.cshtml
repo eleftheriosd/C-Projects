@@ -1,0 +1,58 @@
+﻿
+@model IEnumerable<Eshop_11_4.Models.Order>
+@{
+    ViewData["Title"] = "ViewOrdersAdmin";
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
+}
+
+<h1>ViewOrdersAdmin</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Όνομα
+            </th>
+            <th>
+                Επίθετο
+            </th>
+            <th>
+                Διεύθυνση
+            </th>
+            <th>
+                Ημερομηνία Παραγγελίας
+            </th>
+            <th>
+                Έχει γίνει αποστολή
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderShipped)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrderID">Edit</a> <br>
+                <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="ViewOrderDetailsAdmin" asp-route-id="@item.OrderID" title="Manage">Περισσότερα</a>
+            </td>
+        </tr>
+
+        }
+    </tbody>
+</table>

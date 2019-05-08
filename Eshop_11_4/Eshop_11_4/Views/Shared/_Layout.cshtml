@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Eshop_11_4</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment> 
+    <link rel="stylesheet" href="~/css/site.css" />
+
+
+    <script data-require="jquery@3.1.1" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/script.js"></script>
+    <style>
+        .dropdown:hover .dropdown-menu, .btn-group:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            margin-top: 0;
+        }
+
+        .dropdown-toggle {
+            margin-bottom: 2px;
+        }
+
+        .navbar .dropdown-toggle, .nav-tabs .dropdown-toggle {
+            margin-bottom: 0;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container">
+                <a style="font-family:Arial, Helvetica, sans-serif" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><h1>Mobilia</h1></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-darkdropdown-toggle" asp-area="" asp-controller="Products" asp-action="Index" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Χώροι</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <div>
+                                    @await Component.InvokeAsync("DropdownRooms")
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-darkdropdown-toggle" asp-area="" asp-controller="Products" asp-action="Index" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Είδη</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <div>
+                                    @await Component.InvokeAsync("DropdownTypes")
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Contact">Επικοινωνία</a>
+                        </li>
+
+
+                        <li class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                            <div class=" text-right">
+                                @await Component.InvokeAsync("CartSummary")
+                            </div>
+
+                        </li>
+
+                        <li class="nav-item">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Admin">Admin Page</a>
+                                }
+                            }
+                        </li>
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <br />
+        <div class="row">
+            <div class="bg-dark text-white col-md-4 text-center" style="margin-bottom:30px;">
+                <br />
+                <h4 class="card-title">Ακολουθήστε μας στο</h4>
+                <a href="https://www.facebook.com/" target="_blank" class="fa fa-facebook"></a>
+                <a href="https://www.instagram.com/" target="_blank" class="fa fa-instagram"></a>
+                <a href="https://www.youtube.com/" target="_blank" class="fa fa-youtube"></a>
+            </div>
+            <div class="bg-dark text-white col-md-4" style="margin-bottom:30px;">
+                <br />
+                <h4 class="card-title">Ωράριο Λειτουργίας</h4>
+
+                <ul>
+                    <li> <p class="card-text" style="margin-bottom:-10px;"><b>Δευτέρα - Παρασκευή</b>: 09:00 - 20:00</p></li>
+                    <li><p class="card-text" style="margin-top:-10px;"><b>Σάββατο</b>: 09:00 - 15:00</p></li>
+                </ul>
+
+               
+                
+            </div>
+            <div class="bg-dark text-white col-md-4" style="margin-bottom:30px;">
+                <br />
+                    <h4 class="card-title">Τηλέφωνο Επικοινωνίας</h4>
+                    <p class="card-text" style="margin-bottom:-10px;"><i class="fa fa-phone"> 210 45 356 33</i></p>
+                </div>
+            </div>
+            <div class="container">
+                &copy; 2019 - PEMBA - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+    </footer>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .fa {
+            padding: 20px;
+            font-size: 25px;
+            width: 100px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 50%;
+        }
+        .fa:hover {
+            opacity: 0.7;
+        }
+        </style>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

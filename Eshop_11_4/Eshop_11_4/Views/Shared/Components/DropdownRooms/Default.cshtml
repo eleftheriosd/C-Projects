@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Eshop_11_4.Models.Room>
+@foreach (var item in Model)
+{
+
+    <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="ViewProductsCustomer" asp-route-category="Room" asp-route-id="@item.RoomId" asp-route-name="@item.Name">@item.Name</a>
+
+}
+

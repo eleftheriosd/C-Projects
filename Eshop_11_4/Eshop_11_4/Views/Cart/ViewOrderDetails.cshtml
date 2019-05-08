@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Eshop_11_4.Models.CartLine>
+
+@{
+    ViewData["Title"] = "ViewOrderDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Λεπτομέρειες Παραγγελίας</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Προιόν
+            </th>
+            <th>
+                Ποσότητα
+            </th>
+            <th>
+               Τιμή
+            </th>
+            <th>
+                Ημερομηνία Παραγγελίας
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            float sum = 0;
+        }
+        @foreach (var item in Model)
+        {
+            sum = sum + item.Product.Price*item.Quantity;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.DateCreated)
+            </td>
+        </tr>
+        }
+
+
+    </tbody>
+</table>
+<h2>
+    Συνολικό κόστος : @sum
+</h2>
+
+

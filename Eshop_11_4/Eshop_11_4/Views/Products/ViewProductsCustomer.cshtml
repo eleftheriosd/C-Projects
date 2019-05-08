@@ -1,0 +1,138 @@
+﻿@model IEnumerable<Eshop_11_4.Models.Product>
+
+    @{
+        ViewData["Title"] = "ViewProductsCustomer";
+
+    }
+<style>
+    .product-container {
+        display: grid;
+        grid-template-columns: 11fr 4fr;
+        grid-template-rows: 3fr 3fr 3fr 3fr 2fr 2fr;
+        width: auto;
+        height: 400px;
+        margin: 30px;
+    }
+
+        .product-container > div:nth-child(1) {
+            grid-row-start: 1;
+            grid-row-end: 5;
+        }
+
+        .product-container > div:nth-child(6) {
+            grid-row-start: 5;
+            grid-row-end: 7;
+            margin-right: 50px;
+            margin-top: 10px;
+        }
+
+        .product-container img {
+            width: 600px;
+            height: 320px;
+        }
+
+    hr {
+        border: solid 1px grey;
+    }
+</style>
+
+<h2 style="font-family:Arial;"> @TempData["var"]  </h2>  <hr>
+
+@foreach (var item in Model)
+{
+    if (item.Show == true)
+    {
+        <div class="card" style="background-color:beige; margin:15px;">
+            <div class="product-container">
+                <div><img src="@item.Image" alt="No image, sorry." /></div>
+
+                <div style="font-size:23px;font-family:Gadugi; font-weight:600; margin-bottom:-10px;">@item.Name <hr></div> <!-- Όνομα επίπλου-->
+                <div style="font-size:18px;">Διαστάσεις: <br />  3&times;4&times;8</div> <!-- Διαστάσεις-->
+                <div style="margin:-15px 0px -20px 0px;"> <b style="font-size:23px;">Τιμή:   @item.Price &euro; </b></div> <!-- Τιμή-->
+                <div style="margin-top:-30px;">
+                    <!-- Διαθεσιμότητα -->
+
+                    @if (item.Stock > 3)
+                    {
+                        <p>Σε  απόθεμα</p>
+                    }
+                    else if (item.Stock > 0)
+                    {
+                        <p>Περιορισμένη διαθεσιμότητα</p>
+                    }
+                    else
+                    {
+                        <p>Το προϊόν είναι εξαντλημένο</p>
+                    }
+
+                    <hr>
+
+                </div>
+
+                <div style="padding-top:45px;"> <p>@item.Description</p> </div>
+
+                <div>
+                    @if (item.Stock > 0)
+                    {
+
+                    <form asp-route-productId="@item.ProductId" asp-action="AddToCart"
+                          asp-controller="Cart" method="post">
+                        <input type="hidden" asp-for="@item.ProductId" />
+                        <input type="hidden" name="returnUrl"
+                               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+
+                        <button type="submit" onclick="myFunction()"
+                                class="btn btn-success btn-sm " style="margin-bottom:10px;">
+                            Προσθήκη στο καλάθι
+                        </button>
+                        <br />
+                        <span style="vertical-align:middle;margin-right: 19px;">Ποσότητα:  </span>
+
+                        <div class="quantity buttons_added">
+
+                            <input type="button" value="-" class="minus">
+                            <input type="number" step="1" min="1" max="@item.Stock" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="" style="background-color:#ffffff;">
+                            <input type="button" value="+" class="plus">
+                        </div>
+
+                    </form>
+                    }
+                </div>
+
+                <div>
+
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    }
+}
+
+<script>
+    function myFunction() {
+        alert("Το προϊόν προστέθηκε στο καλάθι");
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
